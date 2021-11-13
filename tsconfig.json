@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "outDir": "dist",
+    "rootDir": ".",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "pretty": true,
+    "newLine": "lf",
+    "stripInternal": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noEmitOnError": true,
+    "useDefineForClassFields": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "dist"]
+}
