@@ -4,16 +4,17 @@ interface Node<T> {
 }
 
 export class LinkedList<T> {
-  node: Node<T> | null;
-  size: number = 0;
+  #node: Node<T> | null;
+  #sz: number;
 
   constructor();
   constructor(value: T);
   constructor(value?: T) {
-    this.node = null;
+    this.#node = null;
+    this.#sz = 0;
     if (value) {
-      this.node = { value, next: null };
-      this.size += 1;
+      this.#node = { value, next: null };
+      this.#sz += 1;
     }
   }
 
@@ -24,52 +25,65 @@ export class LinkedList<T> {
       return new this();
     }
 
-    const l = new this(values.shift());
-    for (const value of values) {
-      l.add(value);
-    }
-    return l as LinkedList<T>;
+    return new this().addAll(values) as LinkedList<T>;
+  }
+
+  get size() {
+    return this.#sz;
   }
 
   peek(): T | null {
-    if (this.node) {
-      return this.node.value;
+    if (this.#node) {
+      return this.#node.value;
     }
     return null;
   }
 
   peekFirst(): T | null {
-    if (!this.node) {
-      return null;
-    }
-
-    let current = this.node;
-    while (current.next) {
-      current = current.next;
-    }
-    return current.value;
+    let value = null;
+    for (value of this.values());
+    return value;
   }
 
   add(value: T): this {
-    this.node = { value, next: this.node };
-    this.size += 1;
+    this.#node = { value, next: this.#node };
+    this.#sz += 1;
     return this;
   }
 
-  walk(): void {
-    for (const value of this) {
-      console.log(value);
+  addAll(values: T[]): this {
+    for (const value of values) {
+      this.add(value);
+    }
+    return this;
+  }
+
+  remove(value: T): this {
+    for (const node of this) {
+      if (node.next && node.next.value == value) {
+        node.next = node.next.next;
+        this.#sz -= 1;
+        return this;
+      }
+    }
+
+    return this;
+  }
+
+  debug(): void {
+    for (const node of this) {
+      console.log(node.value);
     }
   }
 
   *[Symbol.iterator]() {
-    if (this.node) {
-      let current = this.node;
+    if (this.#node) {
+      let current = this.#node;
       while (current.next) {
-        yield current.value;
+        yield current;
         current = current.next;
       }
-      yield current.value;
+      yield current;
     }
   }
 }
