@@ -83,7 +83,7 @@ export class LinkedList<T> {
   find(fn: (value: T) => boolean): T | undefined {
     for (const node of this) {
       if (fn(node.value)) {
-        return node.value
+        return node.value;
       }
     }
 
@@ -91,13 +91,32 @@ export class LinkedList<T> {
   }
 
   debug(): void {
-    for (const node of this) {
-      console.log(node.value);
+    let buffer = "[";
+    for (const [i, node] of this.entries()) {
+      buffer += ` ${node.value}`;
+      if (i !== this.#sz - 1) {
+        buffer += ",";
+      }
     }
+    buffer += " ]";
+    console.log(buffer);
   }
 
   toArray() {
-    return Array.from(this).map(({ value }) => value).reverse();
+    return Array.from(this.values()).reverse();
+  }
+
+  *entries(): Generator<[number, Node<T>]> {
+    let i = 0;
+    for (const node of this) {
+      yield [i++, node];
+    }
+  }
+
+  *values(): Generator<T> {
+    for (const node of this) {
+      yield node.value;
+    }
   }
 
   *[Symbol.iterator]() {

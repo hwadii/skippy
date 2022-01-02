@@ -4,7 +4,7 @@ import test from "ava";
 test("it creates an empty linked list with constructor", (t) => {
   const list = new LinkedList();
   t.is(list.size, 0);
-})
+});
 
 test("it creates an empty linked list from array", (t) => {
   const list = LinkedList.from([]);
@@ -21,7 +21,7 @@ test("it creates a linked list", (t) => {
   const array = [1];
   const list = new LinkedList(1);
   t.deepEqual(list.toArray(), array);
-  t.is(list.size, 1)
+  t.is(list.size, 1);
 });
 
 test("it adds elements to the linked list", (t) => {
@@ -41,7 +41,10 @@ test("it checks if an element is in the list", (t) => {
 
 test("it finds an element in the lsit", (t) => {
   const list = LinkedList.from(["foo", "bar", "foobar"]);
-  t.is(list.find((value) => value.length > 3), "foobar");
+  t.is(
+    list.find((value) => value.length > 3),
+    "foobar"
+  );
 });
 
 test("it returns the first element of the list", (t) => {
