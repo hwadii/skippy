@@ -76,6 +76,10 @@ export class LinkedList<T> {
     }
   }
 
+  toArray() {
+    return Array.from(this).map(({ value }) => value).reverse();
+  }
+
   *[Symbol.iterator]() {
     if (this.#node) {
       let current = this.#node;

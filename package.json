@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "tsnd --respawn -- src/index.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "ava"
   },
   "name": "skippy",
   "version": "0.0.1",
@@ -16,5 +17,17 @@
   "main": "dist/index.js",
   "repository": "https://github.com/hwadii/skippy.git",
   "author": "Wadii Hajji",
-  "license": "MIT"
+  "license": "MIT",
+  "ava": {
+    "files": [
+      "test/**/*"
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "verbose": true
+  }
 }
