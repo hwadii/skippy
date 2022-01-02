@@ -4,15 +4,26 @@ interface Node<T> {
 }
 
 export class LinkedList<T> {
-  node: Node<T>;
+  node: Node<T> | null;
   size: number = 0;
 
-  constructor(value: T) {
-    this.node = { value, next: null };
-    this.size += 1;
+  constructor();
+  constructor(value: T);
+  constructor(value?: T) {
+    this.node = null;
+    if (value) {
+      this.node = { value, next: null };
+      this.size += 1;
+    }
   }
 
-  static from<T>(values: T[]): LinkedList<T> {
+  static from<T>(): LinkedList<T>;
+  static from<T>(values: T[]): LinkedList<T>;
+  static from<T>(values?: T[]): LinkedList<T> {
+    if (!values) {
+      return new this();
+    }
+
     const l = new this(values.shift());
     for (const value of values) {
       l.add(value);
@@ -20,11 +31,18 @@ export class LinkedList<T> {
     return l as LinkedList<T>;
   }
 
-  peek(): T {
-    return this.node.value;
+  peek(): T | null {
+    if (this.node) {
+      return this.node.value;
+    }
+    return null;
   }
 
-  peekFirst(): T {
+  peekFirst(): T | null {
+    if (!this.node) {
+      return null;
+    }
+
     let current = this.node;
     while (current.next) {
       current = current.next;
@@ -45,11 +63,13 @@ export class LinkedList<T> {
   }
 
   *[Symbol.iterator]() {
-    let current = this.node;
-    while (current.next) {
+    if (this.node) {
+      let current = this.node;
+      while (current.next) {
+        yield current.value;
+        current = current.next;
+      }
       yield current.value;
-      current = current.next;
     }
-    yield current.value;
   }
 }
