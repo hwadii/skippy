@@ -33,3 +33,19 @@ test("it removes elements from the linked list", (t) => {
   const list = LinkedList.from([1, 2, 3, 4]);
   t.deepEqual(list.remove(2).toArray(), [1, 3, 4]);
 });
+
+test("it checks if an element is in the list", (t) => {
+  const list = LinkedList.from([1, 2, 3, 4]);
+  t.true(list.contains(2));
+});
+
+test("it finds an element in the lsit", (t) => {
+  const list = LinkedList.from(["foo", "bar", "foobar"]);
+  t.is(list.find((value) => value.length > 3), "foobar");
+});
+
+test("it returns the first element of the list", (t) => {
+  const list = LinkedList.from([1, 2, 3, 4]);
+
+  t.is(list.peekFirst(), 1);
+});

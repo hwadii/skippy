@@ -70,6 +70,26 @@ export class LinkedList<T> {
     return this;
   }
 
+  contains(value: T): boolean {
+    for (const node of this) {
+      if (node.value === value) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  find(fn: (value: T) => boolean): T | undefined {
+    for (const node of this) {
+      if (fn(node.value)) {
+        return node.value
+      }
+    }
+
+    return undefined;
+  }
+
   debug(): void {
     for (const node of this) {
       console.log(node.value);
