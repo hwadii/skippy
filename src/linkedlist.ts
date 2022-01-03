@@ -90,27 +90,12 @@ export class LinkedList<T> {
     return undefined;
   }
 
-  debug(): void {
-    let buffer = "[";
-    for (const [i, node] of this.entries()) {
-      buffer += ` ${node.value}`;
-      if (i !== this.#sz - 1) {
-        buffer += ",";
-      }
-    }
-    buffer += " ]";
-    console.log(buffer);
-  }
-
   toArray() {
     return Array.from(this.values()).reverse();
   }
 
-  *entries(): Generator<[number, Node<T>]> {
-    let i = 0;
-    for (const node of this) {
-      yield [i++, node];
-    }
+  toString() {
+    return this.toArray().join(",");
   }
 
   *values(): Generator<T> {

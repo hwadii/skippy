@@ -52,3 +52,8 @@ test("it returns the first element of the list", (t) => {
 
   t.is(list.peekFirst(), 1);
 });
+
+test("it stringifies the linked list", (t) => {
+  const list = LinkedList.from(["foo", "bar", "foobar"]);
+  t.is(list.toString(), "foo,bar,foobar");
+});
