@@ -48,7 +48,8 @@ export class LinkedList<T> {
   add(value: T): this;
   add(value: T, index: number): this;
   add(value: T, index?: number): this {
-    if (index) {
+    if (index !== undefined && index > 0) {
+      index = Math.min(index, this.#sz - 1);
       for (const [i, node] of this.entries()) {
         if (i === index) {
           node.next = { value, next: node.next };

@@ -35,6 +35,12 @@ test("it adds an element at index", (t) => {
   t.is(list.size(), 5);
 });
 
+test("it clamps the index", (t) => {
+  const list = LinkedList.from([1, 2, 3, 4]);
+  t.deepEqual(list.add(2, 1000).toArray(), [2, 1, 2, 3, 4]);
+  t.deepEqual(list.add(2, -10).toArray(), [2, 1, 2, 3, 4, 2]);
+});
+
 test("it removes elements from the linked list", (t) => {
   const list = LinkedList.from([1, 2, 3, 4]);
   t.deepEqual(list.remove(2).toArray(), [1, 3, 4]);
