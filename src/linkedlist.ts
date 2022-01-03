@@ -28,7 +28,7 @@ export class LinkedList<T> {
     return new this().addAll(values) as LinkedList<T>;
   }
 
-  get size() {
+  size() {
     return this.#sz;
   }
 

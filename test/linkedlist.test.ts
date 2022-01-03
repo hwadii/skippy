@@ -3,12 +3,12 @@ import test from "ava";
 
 test("it creates an empty linked list with constructor", (t) => {
   const list = new LinkedList();
-  t.is(list.size, 0);
+  t.is(list.size(), 0);
 });
 
 test("it creates an empty linked list from array", (t) => {
   const list = LinkedList.from([]);
-  t.is(list.size, 0);
+  t.is(list.size(), 0);
 });
 
 test("it creates a linked list from an array", (t) => {
@@ -21,7 +21,7 @@ test("it creates a linked list", (t) => {
   const array = [1];
   const list = new LinkedList(1);
   t.deepEqual(list.toArray(), array);
-  t.is(list.size, 1);
+  t.is(list.size(), 1);
 });
 
 test("it adds elements to the linked list", (t) => {
@@ -32,7 +32,7 @@ test("it adds elements to the linked list", (t) => {
 test("it adds an element at index", (t) => {
   const list = LinkedList.from([1, 2, 4, 5]);
   t.deepEqual(list.add(3, 1).toArray(), [1, 2, 3, 4, 5]);
-  t.is(list.size, 5);
+  t.is(list.size(), 5);
 });
 
 test("it removes elements from the linked list", (t) => {
