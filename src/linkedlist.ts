@@ -45,9 +45,20 @@ export class LinkedList<T> {
     return value;
   }
 
-  add(value: T): this {
-    this.#node = { value, next: this.#node };
-    this.#sz += 1;
+  add(value: T): this;
+  add(value: T, index: number): this;
+  add(value: T, index?: number): this {
+    if (index) {
+      for (const [i, node] of this.entries()) {
+        if (i === index) {
+          node.next = { value, next: node.next };
+          this.#sz += 1;
+        }
+      }
+    } else {
+      this.#node = { value, next: this.#node };
+      this.#sz += 1;
+    }
     return this;
   }
 
@@ -96,6 +107,13 @@ export class LinkedList<T> {
 
   toString() {
     return this.toArray().join(",");
+  }
+
+  *entries(): Generator<[number, Node<T>]> {
+    let i = 0;
+    for (const node of this) {
+      yield [i++, node];
+    }
   }
 
   *values(): Generator<T> {
