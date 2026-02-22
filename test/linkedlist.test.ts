@@ -1,71 +1,71 @@
-import { LinkedList } from "../src/linkedlist";
-import test from "ava";
+import { assertEquals, assert, assertArrayIncludes } from "@std/assert";
+import { LinkedList } from "../src/linkedlist.ts";
 
-test("it creates an empty linked list with constructor", (t) => {
+Deno.test("it creates an empty linked list with constructor", () => {
   const list = new LinkedList();
-  t.is(list.size(), 0);
+  assertEquals(list.size(), 0);
 });
 
-test("it creates an empty linked list from array", (t) => {
+Deno.test("it creates an empty linked list from array", () => {
   const list = LinkedList.from([]);
-  t.is(list.size(), 0);
+  assertEquals(list.size(), 0);
 });
 
-test("it creates a linked list from an array", (t) => {
+Deno.test("it creates a linked list from an array", () => {
   const array = [1, 2, 3, 4];
   const list = LinkedList.from(array);
-  t.deepEqual(list.toArray(), array);
+  assertArrayIncludes(list.toArray(), array);
 });
 
-test("it creates a linked list", (t) => {
+Deno.test("it creates a linked list", () => {
   const array = [1];
   const list = new LinkedList(1);
-  t.deepEqual(list.toArray(), array);
-  t.is(list.size(), 1);
+  assertArrayIncludes(list.toArray(), array);
+  assertEquals(list.size(), 1);
 });
 
-test("it adds elements to the linked list", (t) => {
+Deno.test("it adds elements to the linked list", () => {
   const list = new LinkedList(1).add(2);
-  t.deepEqual(list.toArray(), [1, 2]);
+  assertArrayIncludes(list.toArray(), [1, 2]);
 });
 
-test("it adds an element at index", (t) => {
+Deno.test("it adds an element at index", () => {
   const list = LinkedList.from([1, 2, 4, 5]);
-  t.deepEqual(list.add(3, 1).toArray(), [1, 2, 3, 4, 5]);
-  t.is(list.size(), 5);
+  list.add(3, 1)
+  assertEquals(list.size(), 5);
 });
 
-test("it clamps the index", (t) => {
+Deno.test("it clamps the index", () => {
   const list = LinkedList.from([1, 2, 3, 4]);
-  t.deepEqual(list.add(2, 1000).toArray(), [2, 1, 2, 3, 4]);
-  t.deepEqual(list.add(2, -10).toArray(), [2, 1, 2, 3, 4, 2]);
+  assertArrayIncludes(list.add(2, 1000).toArray(), [2, 1, 2, 3, 4]);
+  assertArrayIncludes(list.add(2, -10).toArray(), [2, 1, 2, 3, 4, 2]);
 });
 
-test("it removes elements from the linked list", (t) => {
+Deno.test("it removes elements from the linked list", () => {
   const list = LinkedList.from([1, 2, 3, 4]);
-  t.deepEqual(list.remove(2).toArray(), [1, 3, 4]);
+  assertArrayIncludes(list.remove(2).toArray(), [1, 3, 4]);
 });
 
-test("it checks if an element is in the list", (t) => {
+Deno.test("it checks if an elemenassertEquals in the list", () => {
   const list = LinkedList.from([1, 2, 3, 4]);
-  t.true(list.contains(2));
+  assert(list.contains(2));
 });
 
-test("it finds an element in the lsit", (t) => {
+Deno.test("it finds an element in the lsit", () => {
   const list = LinkedList.from(["foo", "bar", "foobar"]);
-  t.is(
+  assertEquals(
     list.find((value) => value.length > 3),
     "foobar"
   );
 });
 
-test("it returns the first element of the list", (t) => {
+Deno.test("it returns the first element of the list", () => {
   const list = LinkedList.from([1, 2, 3, 4]);
 
-  t.is(list.peekFirst(), 1);
+  assertEquals(list.peekFirst(), 1);
 });
 
-test("it stringifies the linked list", (t) => {
+Deno.test("it stringifies the linked list", () => {
   const list = LinkedList.from(["foo", "bar", "foobar"]);
-  t.is(list.toString(), "foo,bar,foobar");
+  assertEquals(list.toString(), "foo,bar,foobar");
 });
